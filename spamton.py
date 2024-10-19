@@ -9,18 +9,18 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report, confusion_matrix
 import string
 
-# Load the dataset (change path as needed)
+# Load dataset
 df = pd.read_csv('email_text.csv')
 
-# Download necessary NLTK corpora (if you haven't already)
+# Download NLTK corpora if needded
 nltk.download('punkt')
 nltk.download('stopwords')
 
-# Initialize the stemmer and stop words
+# Initialise the stemmer and stop words
 stop_words = set(stopwords.words('english'))
 stemmer = PorterStemmer()
 
-# Preprocess the text
+# Preprocessing function
 def preprocess_text(text):
     text = text.lower()  # Lowercase
     text = text.translate(str.maketrans('', '', string.punctuation))  # Remove punctuation
@@ -28,7 +28,7 @@ def preprocess_text(text):
     tokens = [stemmer.stem(word) for word in tokens if word not in stop_words]  # Remove stop words and stem
     return ' '.join(tokens)
 
-# Fill missing values with an empty string
+# Fill missing values with a blank string
 df['text'] = df['text'].fillna('')
 
 # Now apply preprocessing
